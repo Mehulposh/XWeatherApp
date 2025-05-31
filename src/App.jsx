@@ -30,6 +30,7 @@ function App() {
       <div className='searchbar'>
         <input 
           required
+          type='text'
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           placeholder='Enter city name'

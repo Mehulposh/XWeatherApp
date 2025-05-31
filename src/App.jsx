@@ -32,6 +32,7 @@ function App() {
           required
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
+          placeholder='Enter city name'
         />
         <button onClick={handleSubmit}>
           Search

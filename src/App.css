@@ -5,6 +5,28 @@
   text-align: center;
 }
 
+.searchbar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-cards{
+  display: flex;
+  gap: 20px;
+}
+
+.weather-cards p{
+  font-weight: bold;
+}
+.weather-card{
+  background-color: white;
+  width: 200px;
+  height: 100px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 11px 5px -4px rgba(0,0,0,0.28);
+}
 .logo {
   height: 6em;
   padding: 1.5em;

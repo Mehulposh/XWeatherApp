@@ -1,34 +1,67 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import getData from './api/api';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [searchText,setSearchText] = useState('');
+  const [citydata , setCityData] = useState()
+  const [loading,setLoading] = useState(false)
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      const data = await getData(searchText);
+      
+      setCityData(data);
+      
+    }
+    catch(err){
+      console.error(err);
+    }
+    finally{
+      setLoading(false);
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div>
+      <div className='searchbar'>
+        <input 
+          required
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <button onClick={handleSubmit}>
+          Search
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      {loading ? (
+        <p>Loading data...</p>
+      ) : citydata ?(
+      
+      <div className='weather-cards'>
+        <div className='weather-card'>
+          <p>Temperature</p>
+          {citydata.current['temp_c']}°C
+        </div>
+        <div className='weather-card'>
+          <p>Humidity</p>
+          {citydata.current['humidity']}%
+        </div>
+        <div className='weather-card'>
+          <p>Condition</p>
+          {citydata.current['condition']['text']}
+        </div>
+        <div className='weather-card'>
+          <p>Wind Speed</p>
+          {citydata.current['wind_kph']} kph
+        </div>
+      </div>
+    ) : null}
+    </div>
   )
 }
 
